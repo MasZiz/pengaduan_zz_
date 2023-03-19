@@ -1,0 +1,111 @@
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Petugas</h3>
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal1">Tambah</button>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Pelapor</th>
+                                    <th>Tanggal</th>
+                                    <th>Kategori</th>
+                                    <th>sub_Kategori</th>
+                                    <th>Isi</th>
+                                    <th>image</th>
+                                </tr>
+                            </thead>
+                            <?php $i = 1 ?>
+                            <?php foreach ($pengaduan as $p) : ?>
+                                <tr>
+
+                                    <td><?= $i ?></td>
+                                    <td><?= $p['nama'] ?></td>
+                                    <td><?= $p['tgl_pengaduan'] ?></td>
+                                    <td><?= $p['kategori'] ?></td>
+                                    <td><?= $p['sub_kategori'] ?></td>
+                                    <td><?= $p['isi_laporan'] ?></td>
+                                    <td><img src="<?= base_url() .'/assets/img/' . $p['foto']; ?>"></td>
+                                    <td>
+                                        <a href="#" class="btn btn btn-warning"><i class="fas fa-undo"></i></a>
+                                        <a href="#" class="btn btn btn-danger"><i class="fas fa-lock"></i></a>
+                                    </td>
+                                </tr>
+                            <?php $i++;
+                            endforeach ?>
+                            <tfoot>
+                    <div class="card-body">
+
+                        <form class="mt-5" method="post" action="<?= base_url('masyarakat_zz/fungsi_tambah') ?>" enctype="multipart/form-data">
+                            <?php echo form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash())   ?>
+
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+
+
+
+                                            <label>Kategori</label>
+                                            <select class="form-control" id="kategori" name="kategori">
+                                            <option value="0">Pilih kategori</option>
+                                                            <?php foreach ($kategori as $kp) : ?>
+                                                                <option value=" <?= $kp['kategori'] ?>">
+                                                                    <?= $kp['kategori'] ?></option>
+                                                            <?php endforeach; ?>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Sub Kategori</label>
+                                            <select class="form-control" id="sub_kategori" name="sub_kategori">
+                                            <?php foreach ($sub_kategori as $sk) : ?>
+                                                                <option value=" <?= $sk['sub_kategori'] ?>">
+                                                                    <?= $sk['sub_kategori'] ?></option>
+                                                            <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Tanggal</label>
+                                            <input type="date" class="form-control" id="tgl_pengaduan" name="tgl_pengaduan" placeholder="Tanggal">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Isi Laporan Pengaduan</label>
+                                            <textarea class="form-control" id="isi_laporan" name="isi_laporan" rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Upload Foto</label><br>
+                                            <input type="file" class="form-control" id="foto" name="foto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <a href="<?= base_url('masyarakat/pengaduan') ?>"><button type="submit" class="btn btn-danger col-md-1"><i class="fa-solid fa-plus"></i> Laporkan</button></a>
+                    </div>
+                </div>
+                </form>
+
+
+
+              
