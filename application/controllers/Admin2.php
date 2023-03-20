@@ -111,7 +111,35 @@ class admin2 extends CI_Controller
         redirect('admin2/selesai_admin/' . $id_pengaduan);
     }
 
+public function laporan_pdf(){
+   
 
+
+        $data = array(
+            "dataku" => array(
+                "nama" => "Petani Kode",
+                "url" => "http://petanikode.com"
+            )
+        );
+
+        $this->load->model('kategori_zz');
+        // $data['title'] = 'Admin Dashboard';
+        $data['title'] = 'dashboard YTTA';
+        $data['pengaduan'] = $this->table_zz->getRiwayatAdmin();
+        $data['user'] = $this->db->get_where('masyarakat', ['username' => $this->session->userdata('username')])->row_array();
+        $data['user'] = $this->db->get_where('masyarakat', ['nama' => $this->session->userdata('nama')])->row_array();
+        // $data['p'] = $this->db->get('pengaduan')->result_array();    
+        $data['kategori'] = $this->db->get('kategori')->result_array();
+        $data['sub_kategori'] = $this->db->get('sub_kategori')->result_array();
+    
+        $this->load->library('pdf');
+    
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "laporan-petanikode.pdf";
+        $this->pdf->load_view('laporan_pdf', $data);
+    
+    
+    }
 
 
    
